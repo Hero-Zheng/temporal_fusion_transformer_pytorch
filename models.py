@@ -1,14 +1,6 @@
-from torch.utils.data import Dataset, DataLoader
 import torch.nn.functional as F
-from torchvision import transforms, utils
-from torch import tanh
 from torch import nn
 import torch
-
-import pytorch_lightning as pl
-from pytorch_lightning.callbacks import EarlyStopping
-
-import sklearn.preprocessing
 
 class GatedLinearUnit(nn.Module):
     def __init__(self, input_size,
@@ -276,6 +268,7 @@ class VariableSelectionNetwork(nn.Module):
     def forward(self, x):
         # Non Static Inputs
         if self.additional_context:
+            # embedding : (batch, time_steps, hidden_layer_size, output_size)
             embedding, static_context = x
             #print('static_context')
             #print(static_context.shape)
